@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+    <style>
+                @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+            flex-direction: column;
+        }
+
+        .contenedor {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .maceta {
+            animation: aparecer 1s ease-out, balanceo 2s infinite ease-in-out 2s;
+            position: relative;
+            width: 20vmin;
+            height: 20vmin;
+            background-color: #8B4513;
+            border-radius: 10% 10% 40% 40%;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            animation: aparecer 1s ease-out;
+        }
+
+        .maceta::before {
+            content: '';
+            position: absolute;
+            top: -10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120%;
+            height: 15%;
+            background-color: #8B4513;
+            border-radius: 10% 10% 0 0;
+        }
+
+        .maceta::after {
+            content: '';
+            position: absolute;
+            bottom: -15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            height: 15%;
+            background-color: #8B4513;
+            border-radius: 0 0 10% 10%;
+        }
+
+        .tallo {
+            width: 25vmin;
+            height: auto;
+            display: block;
+            opacity: 0;
+            animation: crecer 1.5s ease-out forwards;
+        }
+
+        .flor {
+            width: 30vmin;
+            height: auto;
+            display: block;
+            position: relative;
+            top: 20vmin;
+            opacity: 0;
+            animation: crecer 1.5s ease-out 0.5s forwards, balanceo 3s infinite ease-in-out;
+        }
+        .frase {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2em;
+            color: #c71585;
+            text-align: center;
+            margin-bottom: 20px;
+            max-width: 80%;
+        }
+       .boton {
+        background-color: #c71585;
+        color: white;
+        font-family: 'Dancing Script', cursive;
+        font-size: 1.5em;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        margin-top: 20px;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .boton:hover {
+        transform: scale(1.1);
+        box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    }     
+.destellos {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .destello {
+        position: absolute;
+        width: 5px;
+        height: 5px;
+        background-color: rgba(255, 192, 203, 0.8);
+        border-radius: 50%;
+        box-shadow: 0 0 5px rgba(255, 192, 203, 0.9);
+        animation: mover 5s linear infinite;
+    }
+
+    @keyframes mover {
+        0% {
+            transform: translateY(0) translateX(0);
+            opacity: 1;
+        }
+        50% {
+            opacity: 0.6;
+        }
+        100% {
+            transform: translateY(-100px) translateX(50px);
+            opacity: 0;
+        }
+    }
+
+.pantalla-emergente {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.destello-click {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: rgba(255, 192, 203, 0.9);
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(255, 192, 203, 0.9);
+    animation: explotar 0.5s ease-out forwards;
+}
+carta {
+    width: 60%;
+    max-width: 500px;
+    background-color: #fff8dc;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.3);
+    border: 2px solid #c71585;
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8em;
+    color: #333;
+    position: relative;
+    transform: translateY(30px);
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+}
+
+/* Estilos para el papel dentro de la carta */
+.papel {
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.contenido-carta{
+            font-family: Mr Dafoe;
+            font-size: 80%;
+}
+
+/* Botón para cerrar */
+.cerrar {
+    background-color: #c71585;
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2em;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-top: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.cerrar:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes explotar {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(10);
+        opacity: 0;
+    }
+}
+        /* Animaciones */
+        @keyframes crecer {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes balanceo {
+            0%, 100% {
+                transform: rotate(0deg);
+            }
+            50% {
+                transform: rotate(5deg);
+            }
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+        <div class="destellos"></div>
+
+    <div class="frase">Que esta rosa ilumine tu día como tú iluminas mi vida entera.</div>
+  
+    <div class="contenedor">
+          <button class="boton">Haz click aquí</button>
+        <svg class="flor" version="1.0" xmlns="http://www.w3.org/2000/svg" 
+            width="300.000000pt" height="267.000000pt" 
+            viewBox="0 -30 300 267" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,267.000000) scale(0.050000,-0.050000)" fill="#ff0000" stroke="none">
+                <path d="M2940 5171 c-138 -39 -238 -85 -376 -175 -125 -81 -130 -82 -361 -96 -436 -25 -677 -259 -635 -615 29 -248 596 -1092 710 -1056 70 23 51 65 -173 374 -437 603 -494 783 -312 995 108 127 165 148 430 162 226 12 236 15 370 94 325 192 336 196 567 195 712 -2 1200 -856 817 -1429 -80 -120 -261 -286 -337 -310 -139 -44 -656 366 -787 625 -149 292 51 587 307 455 146 -75 129 -290 -23 -290 -99 0 -140 112 -44 124 77 9 105 63 58 115 -114 126 -306 -95 -222 -256 100 -194 402 -147 452 71 73 319 -323 530 -583 311 -316 -266 -45 -864 537 -1185 104 -58 106 -72 10 -100 -373 -107 -1214 -97 -1444 16 -160 79 -243 310 -165 457 18 34 16 48 -13 74 -53 48 -79 41 -109 -32 -126 -303 38 -599 366 -660 109 -20 131 -32 158 -83 157 -294 491 -411 1182 -412 700 0 1011 199 1199 767 245 742 107 1580 -284 1720 -210 75 -367 51 -314 -48 15 -30 42 -39 111 -39 670 0 624 -1803 -54 -2151 -368 -188 -1382 -140 -1615 77 -120 113 -112 118 181 103 863 -45 1467 252 1657 813 245 728 -539 1592 -1261 1389z"/>
+            </g>
+        </svg>
+        <svg class="tallo" version="1.0" xmlns="http://www.w3.org/2000/svg" width="300.000000pt" height="267.000000pt" viewBox="0 0 300.000000 267.000000" preserveAspectRatio="xMidYMid meet">
+            <g transform="translate(0.000000,267.000000) scale(0.050000,-0.050000)" fill="#00ff11" stroke="none">
+                <path d="M938 2959 c-35 -22 4 -77 195 -271 453 -462 1041 -696 1307 -520 l87 57 55 -67 c331 -402 489 -1223 379 -1968 -28 -195 -30 -190 46 -190 l67 0 23 193 c13 106 29 437 35 735 10 477 30 801 52 823 4 4 60 -19 125 -52 463 -234 1273 176 1530 775 55 127 44 153 -50 114 -86 -36 -370 -92 -749 -148 -693 -102 -902 -248 -983 -688 -30 -165 -36 -165 -102 13 -251 676 -813 1084 -1615 1173 -311 34 -375 37 -402 21z"/>
+            </g>
+        </svg>
+        <div class="maceta"></div>
+    </div>
+    <div class="pantalla-emergente">
+    <div class="carta">
+        <div class="papel">
+            <!-- Aquí puedes colocar el texto de la carta -->
+            <p class="contenido-carta">Para empezar, quiero desearte un feliz Día del Cariño y la Amistad. Ha pasado mucho tiempo desde aquel 20 de enero en el que todo comenzó, y desde entonces hemos construido algo tan grande y especial que celebrarlo un solo día se queda corto. Tú bien sabes que, día con día, me siento profundamente agradecido por tenerte en mi vida.</p>
+
+<p class="contenido-carta">Te lo he dicho en múltiples ocasiones: te veo, y de verdad agradezco tanto a la vida por haberme dado la dicha de conocer a alguien tan linda y especial como tú. Sé que no todo ha sido color de rosa; hemos pasado por momentos difíciles, y muchas personas han intentado separarnos. Pero eso solo me ha demostrado que no importa la cantidad de personas en mi vida, sino la calidad. Y tenerte a ti es mejor que tener a millones a mi alrededor.</p>
+
+
+<p class="contenido-carta">Somos un complemento perfecto el uno para el otro. Hemos reído, hemos aprendido, hemos descubierto tanto juntos… Cada momento a tu lado es inigualable. El tiempo, la alegría, la calidez y los múltiples sentimientos vuelan cuando estoy contigo. Cada segundo a tu lado quisiera que fuera eterno… En serio, iluminas mi vida de maneras que ni te imaginas.</p>
+
+
+<p class="contenido-carta">Solo le pido a la vida y al destino que nunca me faltes y que nos regale muchos años más juntos, llenos de risas, alegrías, cariño y mil cosas más por descubrir. Eres mi adoración. ❤️</p>
+        </div>
+        <button class="cerrar">Cerrar</button>
+    </div>
+</div>
+<div class="pantalla-emergente">
+    <div class="carta">
+        <div class="papel">
+            <!-- Aquí puedes colocar el texto de la carta -->
+            <p class="contenido-carta">Querido/a... Esta es una carta especial para ti. 🌸</p>
+        </div>
+        <button class="cerrar">Cerrar</button>
+    </div>
+</div>
+</body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const numDestellos = 50; // Cantidad de destellos
+            const contenedor = document.querySelector(".destellos");
+
+            for (let i = 0; i < numDestellos; i++) {
+                let destello = document.createElement("div");
+                destello.classList.add("destello");
+                destello.style.left = Math.random() * 100 + "vw";
+                destello.style.top = Math.random() * 100 + "vh";
+                destello.style.animationDuration = (Math.random() * 3 + 3) + "s";
+                contenedor.appendChild(destello);
+            }
+        });
+        document.querySelector(".boton").addEventListener("click", function (event) {
+    // Crear el destello en la posición del clic
+    let destello = document.createElement("div");
+    destello.classList.add("destello-click");
+    destello.style.position = "absolute";
+    destello.style.width = "30px";
+    destello.style.height = "30px";
+    destello.style.backgroundColor = "rgba(255, 192, 203, 0.9)";
+    destello.style.borderRadius = "50%";
+    destello.style.boxShadow = "0 0 15px rgba(255, 192, 203, 0.9)";
+    destello.style.left = `${event.clientX}px`;
+    destello.style.top = `${event.clientY}px`;
+    destello.style.animation = "explotar 0.5s ease-out forwards";
+    
+    document.body.appendChild(destello);
+
+    // Eliminar el destello después de la animación
+    setTimeout(() => destello.remove(), 500);
+
+    // Mostrar la pantalla emergente y la carta con animación
+    let pantalla = document.querySelector(".pantalla-emergente");
+    let carta = document.querySelector(".carta");
+    pantalla.style.opacity = "1";
+    pantalla.style.pointerEvents = "auto";
+
+    setTimeout(() => {
+        carta.style.opacity = "1";
+        carta.style.transform = "translateY(0)";
+    }, 200);
+});
+
+// Función para cerrar la carta
+document.querySelector(".cerrar").addEventListener("click", function () {
+    let pantalla = document.querySelector(".pantalla-emergente");
+    let carta = document.querySelector(".carta");
+    carta.style.opacity = "0";
+    carta.style.transform = "translateY(30px)";
+    
+    setTimeout(() => {
+        pantalla.style.opacity = "0";
+        pantalla.style.pointerEvents = "none";
+    }, 300);
+});
+    </script>
+</html>
